@@ -1,5 +1,6 @@
 // ===============================================================================
 // HIGH-FREQUENCY ARBITRAGE ENGINE v2.0 (FLASH LOAN & FLASHBOTS SIMULATION)
+// Main file named server.js to match package.json start script.
 // This service simulates a profitable, high-frequency arbitrage strategy,
 // uses a FallbackProvider for connection robustness, and simulates depositing
 // aggregated real ETH profit back into the Treasury wallet.
@@ -313,7 +314,7 @@ app.post('/withdraw', async (req, res) => {
         let ethAmount = parseFloat(amountETH) || 0;
         
         if (!signer) {
-            return res.status(400).json({ error: 'Treasury private key not set. Cannot perform withdrawal.' });
+            return res.status(400).json({ error: 'Private key not set. Cannot perform withdrawal.' });
         }
         
         const balance = await getTreasuryBalance();
@@ -355,7 +356,12 @@ app.post('/withdraw', async (req, res) => {
 initProvider().then(() => {
     app.listen(PORT, () => {
         console.log(`🚀 High-Frequency Arbitrage Engine v2.0 listening on port ${PORT}`);
-        // Start the automated trading loop after the server is listening
-        startAutoTrader();
+        if (signer) {
+            console.log("✅ Engine is fully initialized and ready to execute arbitrage transactions.");
+            // Start the automated trading loop after the server is listening
+            startAutoTrader();
+        } else {
+            console.error("⚠️ Engine running in MONITORING MODE only. Set TREASURY_PRIVATE_KEY to enable automated arbitrage execution.");
+        }
     });
 });
