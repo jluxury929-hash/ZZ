@@ -1,0 +1,18 @@
+{
+  "name": "high-frequency-arbitrage-engine",
+  "version": "2.0.0",
+  "description": "Node.js backend simulating Flash Loan Arbitrage, Flashbots submission, and real ETH profit deposit.",
+  "main": "strategy_engine.js",
+  "scripts": {
+    "start": "node strategy_engine.js",
+    "dev": "nodemon strategy_engine.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "ethers": "^6.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
